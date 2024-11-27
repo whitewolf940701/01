@@ -13,6 +13,8 @@
 <!-- Add p5.js -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
 <script type="text/javascript" src="js/p5.js"></script>
+    <!-- 嵌入lenis -->
+    <script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js"></script> 
 </head>
  
 <body>
@@ -46,7 +48,7 @@
 <section>    
 
 
-    <video src="images/bgv.mp4" autoplay loop muted class="bgv"></video>
+    <video src="images/bgv.mp4" autoplay loop muted playsinline class="bgv"></video>
         
     <h1>Children's Book Illustration</h1>
     <p>A selection of Childen's Book Illustrations, from the British Library's Mechanical Curator Collection, discovered and tagged by the community.</p>
@@ -119,6 +121,114 @@
 <!-- &copy;All Rights Reserved. 圖片僅課堂練習使用，不得販售商用 -->
 </footer>
 
+<style>
+    body {
+      height: auto; /* 讓頁面有足夠的高度可以滾動 */
+      cursor: crosshair;
+    }
+    body.dragging {
+      cursor: crosshair;
+    }
+</style>
+
+
+<script>
+    (function () {
+      let drag = false;
+      let Y; // Y
+      let scroll; // 滾動
+      let velocity = 0; // 速度
+      let lastY; // last Y
+      let animationFrame;
+  
+      // 平滑滾動
+      const smoothScroll = () => {
+            if (Math.abs(velocity) > 0.1) { // 速度夠則繼續動
+            window.scrollBy(0, -velocity); // 滾動
+            velocity *= 0.95; // 減速
+            animationFrame = requestAnimationFrame(smoothScroll);
+            } else {
+            cancelAnimationFrame(animationFrame); // 停止
+            }
+        };
+  
+      // 鼠標按下
+      document.addEventListener("mousedown", (event) => {
+            drag = true;
+            Y = event.clientY; // Y
+            lastY = Y; // last Y
+            scroll = window.scrollY; // 滾動
+            velocity = 0; // 速度
+            cancelAnimationFrame(animationFrame); // 停止
+        });
+  
+      // 鼠標移動
+      document.addEventListener("mousemove", (event) => {
+            if (!drag) return;
+            const newY = event.clientY;
+            const deltaY = newY - lastY; // 滾動
+            lastY = newY; // 更新上一次的 Y 位置
+            velocity = deltaY * 0.5; // 更新速度，並限制增幅
+            window.scrollTo(0, scroll - (newY - Y)); // 滾動頁面
+        });
+  
+      // 鼠標放開
+      document.addEventListener("mouseup", () => {
+            if (drag) {
+            drag = false;
+            animationFrame = requestAnimationFrame(smoothScroll);
+            }
+        });
+  
+      // 防止卡住
+        document.addEventListener("mouseleave", () => {
+            if (drag) {
+            drag = false;
+            animationFrame = requestAnimationFrame(smoothScroll);
+            }
+        });
+
+    })();
+
+</script>
+  
 </body>
 </html>
 
+
+
+
+<!-- <script>
+
+    (function() {
+      let drag = false;
+      let Y;
+      let scroll;
+
+      // 鼠標按下
+      document.addEventListener("mousedown", (event) => {
+        drag = true;
+        Y = event.clientY; // Y軸
+        scroll = window.scrollY; // 滾動
+      });
+
+      // 鼠標移動
+      document.addEventListener("mousemove", (event) => {
+        if (!drag) return;
+        const newY = event.clientY - Y; // 偏移量
+        window.scrollTo(0, scroll - newY); // 滾動
+      });
+
+      // 放開
+      document.addEventListener("mouseup", () => {
+        drag = false;
+      });
+
+      // 避免卡住
+      document.addEventListener("mouseleave", () => {
+        drag = false;
+      });
+
+    })();
+
+</script> -->
