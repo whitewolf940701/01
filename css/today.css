@@ -10,9 +10,20 @@
 	padding:0;
 }
 
-body{
+html, body {
+    overflow: auto; /* 確保可以滾動 */
+	/* scroll-behavior: smooth; */
+}
+
+body {
+	height: auto; /* 讓頁面有足夠的高度可以滾動 */
+	cursor: none;
 	font-family: "Black Ops One", serif;
 	background:#262626;
+	cursor: none;
+}
+
+body.dragging {
 	cursor: none;
 }
 
@@ -37,7 +48,7 @@ header{
 h1 svg{
 	width:12%;
 	height:12%;
-	margin-top: 30px;
+	margin-top: 18px;
 }
 
 .menu{
@@ -87,15 +98,64 @@ nav li a:hover{
 	transition-duration:0.5s; 
 }
 
+/* .intro{
+	color: #fff;
+	width: 80%;
+	text-align:center;
+	margin: auto;
+	line-height:1.5em;
+	font-size:1.1em;
+} */
+
+
+/* .intro h1{
+	margin: 30px 0px;
+	line-height:1.5em;
+} */
+
+.intro{
+	width: 100%;
+	height: auto;
+
+	display: flex;
+	/* 水平置中 */
+	justify-content: center;    
+	/* 垂直置中 */
+	align-content: center;      
+	flex-wrap: wrap;
+}
+
+.info{
+	width: 80%;
+	height: 170px;
+	margin-top: 0px;
+	/* padding-bottom: 20%; */
+	background-image: url("../images/info2.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	border-bottom: #fff solid 2px;
+}
+
+.info1{
+	width: 80%;
+	height: 190px;
+	margin-top: 0px;
+	/* padding-bottom: 20%; */
+	background-image: url("../images/info4.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	border-bottom: #fff solid 2px;
+}
+
 .ch_bg{
 	background:#fff;
 }
 
 /* section */
 section{
-	width:80%;
+	width:100%;
 	margin: auto;
-	padding:10px 0px;
+	padding:5px 0px;
 	text-align:center;
 	color:#262626;
 	line-height:2.5em;
@@ -134,10 +194,11 @@ section h1,p{
 
 section img{
 	width:100%;
-	border: 2px solid rgb(256,256,256,0.6);
+	border: 2px solid rgb(256,256,256,0);
 	border-radius: 10px;
 	filter: grayscale(100%);
 	transition-duration:0.5s; 
+    user-select:none;
 }
 
 section img:hover{
@@ -146,15 +207,31 @@ section img:hover{
 	transition-duration:0.3s; 
 }
 
-.fancybox-skin{
+/* .fancybox-skin{
 	background: #000
-}
+} */
 
 element.style {
 	padding: 5px;
 }
 
+/* 回到最上層 */
 
+aside{
+	display: none;
+	/* width: 100px;
+	height: 100px; */
+	position:fixed;
+	right:10px;
+	bottom:10px;
+	z-index:1000000;
+}
+
+.top{
+    width: 25px;
+    margin-right: 21px;
+    margin-bottom: 20px;
+}
 
 /*footer*/
 
@@ -164,10 +241,68 @@ footer{
 	color: #fff;	
 }
 
-/*===============rwd details===============*/
+/*=============== Proflle control ===============*/
+
+.card{
+	width: 100%;
+	display: flex;
+	justify-content: center;    
+	align-content: center;    
+	height: auto;
+	flex-direction: column;   
+	align-items: center;
+}
+
+.card h1{
+	margin: 30px 0px;
+	padding-bottom: 20px;
+	font-size: 35px;
+	border-bottom: rgb(256,256,256,1) solid 2px;
+	letter-spacing: 3px;
+}
+
+.card1,.card2 {
+	width: 52%;
+	display: flex;;
+	color: #fff;
+	flex-direction: column;
+	margin-bottom: 100px;
+	font-size: 20px;
+	/* margin: auto; 用margin auto也可以 */
+	/* justify-content: center;     */
+}
+
+.tag{
+	color: #fff;
+	letter-spacing: 2px;
+	margin-bottom: 10px;
+	/* text-align: center;
+	justify-content: center;    
+	align-content: center;    */
+}
+
+.tag::before{
+	content: attr(data-type) ": "; 
+	margin-right: 30px;
+	color: #fff;
+	display: inline-block;
+	width: 250px;
+}
+
+
+/*=============== rwd details ===============*/
 
 /* For tablets */
 @media only screen and (min-width: 768px) { 
+
+	aside{
+		display:block;
+		position:fixed;
+		right:10px;
+		bottom:10px;
+		z-index:1000000;
+	}
+	
 
 	h1 svg{
         width:5%;
@@ -175,9 +310,8 @@ footer{
 	}
 
 	nav{
-		position: -webkit-sticky;
-		  position: sticky;
-		  top: 0;
+		position: sticky; /* 使導覽列在滾動到指定位置後固定 */
+		top: 0;           /* 固定在視窗頂部 */
 		z-index:2000;
 		/* background:#000; */
 	}
@@ -194,6 +328,18 @@ footer{
 	.menu{
         display:none;        
 	}
+
+	.info{
+		width: 57%;
+		height: 180px;
+		margin-top: 40px;
+		padding-bottom: 0%;
+		background-image: url("../images/info1.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+		border-bottom: #fff solid 2px;
+	}
+	
 	
 	section{
         line-height:2.5em;
@@ -219,9 +365,37 @@ footer{
 /* For desktop */
 @media only screen and (min-width: 1200px) {
 
-	/* nav{
-		background:#fff;
-	} */
+
+	nav{
+		position: -webkit-sticky;
+		  position: sticky;
+		  top: 0;
+		z-index:2000;
+		/* background:#000; */
+	}
+
+	.info{
+		width: 52%;
+		height: 300px;
+		margin-top: 40px;
+		padding-bottom: 20%;
+		background-image: url("../images/info1.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+		border-bottom: #fff solid 2px;
+	}
+
+	.info1{
+		width: 52%;
+		height: 300px;
+		margin-top: 40px;
+		padding-bottom: 20%;
+		background-image: url("../images/info3.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+		border-bottom: #fff solid 2px;
+	}
+
 	
 
 	section{
@@ -241,10 +415,12 @@ footer{
 	.bgv{
 		transform: translate(-0%,-0%);
 	}
+
+	.fancybox-iframe{
+		width: 80%;
+	}
 	
 }
-
-
 
 
 /* 隱藏滑動滾輪 */
@@ -252,12 +428,12 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-html,body{ width: 100%; height: 100%; overflow: scroll;}
+/* html,body{ width: 100%; height: 100%; overflow: scroll;} */
 html::-webkit-scrollbar, body::-webkit-scrollbar{width:0px;height:0px;}
 body{margin:0;}
 
-/* 文字選取反黑特效 */
 
+/* 文字選取反黑特效 */
 ::selection {
     background: none;
     color: #5fff09;
@@ -268,7 +444,7 @@ img::selection {
 }
 
 /* 絲滑捲動 */
-html{
-	/* scroll-behavior: smooth; */
-}
+/* html{
+	scroll-behavior: smooth;
+} */
 

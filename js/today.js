@@ -2,13 +2,13 @@
 
 $(document).ready(function(){        
 
+    // 導覽列功能
+
     $(".menu").click(function(){
 
         $("nav").slideToggle();            
 
     });
-
-
 
     $(window).on('load resize',function(){
 
@@ -17,6 +17,8 @@ $(document).ready(function(){
         if(a_w >= 768) $("nav").show(); else $("nav").hide();                
 
     });
+
+    // fancybox功能
 
     // group
     $(".fancybox").fancybox({
@@ -40,20 +42,5 @@ $(document).ready(function(){
         }
 
     });
-
-    // Initialize Lenis
-    const lenis = new Lenis({
-    autoRaf: true,
-    });
-    
-    // Listen for the scroll event and log the event data
-    lenis.on('scroll', (e) => {
-    console.log(e);
-    });
-    
-    function toTop (){
-        lenis.scrollTo(0)
-    } 
     
 });
-

@@ -55,7 +55,7 @@ function draw() {
         // fill(117,242,17,150)
         fill(255)
         strokeWeight(0);
-        circle(0,0,80)
+        // circle(0,0,80)
 
         stroke(255)
         for(i=0;i<180;i++){
@@ -68,7 +68,7 @@ function draw() {
         circle(mouseX*noise(0.005 * frameCount-10), mouseY*noise(0.005 * frameCount-10),random(3))
         }		
 
-    }else{
+    }else if( windowWidth>450 ){
 
         clear()
         // for(i=0;i<4;i++){
