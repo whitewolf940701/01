@@ -1,0 +1,21 @@
+{
+    "name": "wolf-white",
+    "short_name": "wolf-white",
+    "start_url": "https://white-wolf.pages.dev/",
+    "display": "standalone",
+    "background_color": "#575757",
+    "theme_color": "#575757",
+    "icons": [
+      {
+        "src": "/icons/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
