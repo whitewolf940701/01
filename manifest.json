@@ -1,7 +1,7 @@
 {
     "name": "wolf-white",
     "short_name": "wolf-white",
-    "start_url": "manifest.json",
+    "start_url": "https://white-wolf.pages.dev/",
     "display": "standalone",
     "background_color": "#575757",
     "theme_color": "#575757",
